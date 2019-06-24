@@ -9,6 +9,6 @@
   </metadata>
   <files>
     <file src="RELEASENOTES.md" />
-    <file src="Current\*.*" target="content" buildAction="EmbeddedResource"/> 
+    <file src="Current\*.*" target="content"/> 
   </files>
 </package>
