@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>SQLCop</id>
+    <version>$version$</version>
+    <authors>Red Gate Software Ltd</authors>
+    <description>SQL Cop - SQL Server health checks</description>
+    <projectUrl>https://github.com/red-gate/SQLCop</projectUrl>
+  </metadata>
+  <files>
+    <file src="Current\*.*" /> 
+    <file src="RELEASENOTES.md" />
+  </files>
+</package>
