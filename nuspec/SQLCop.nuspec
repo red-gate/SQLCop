@@ -7,10 +7,8 @@
     <description>SQL Cop - SQL Server health checks</description>
     <projectUrl>https://github.com/red-gate/SQLCop</projectUrl>
   </metadata>
-  <contentfiles>
-    <file src="Current\*.*" buildAction="EmbeddedResource"/> 
-  </contentfiles>
   <files>
     <file src="RELEASENOTES.md" />
+    <file src="Current\*.*" target="content" buildAction="EmbeddedResource"/> 
   </files>
 </package>
