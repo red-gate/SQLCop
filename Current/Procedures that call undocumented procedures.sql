@@ -7,6 +7,7 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
+	-- Updates contributed by Claude Harvey
 	
     SET NOCOUNT ON
 
@@ -89,6 +90,7 @@ BEGIN
     WHERE  xtype = 'P'
            AND OBJECTPROPERTY(o.id, N'IsMSShipped') = 0
            AND u.name <> 'tSQLt'
+           AND ISNULL(u.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles 
     ORDER BY u.name + '.' + o.Name 
 
 	If @Output > '' 
