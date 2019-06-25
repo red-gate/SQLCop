@@ -7,6 +7,7 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
+	-- Updates contributed by Claude Harvey
 	
 	SET NOCOUNT ON
 	
@@ -29,6 +30,7 @@ BEGIN
 				ON AllTables.id = PrimaryKeys.parent_obj
 	WHERE	PrimaryKeys.parent_obj Is Null
 			AND su.name <> 'tSQLt'
+		    AND ISNULL(su.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles 
 	ORDER BY su.name,AllTables.Name
 
 	If @Output > '' 
