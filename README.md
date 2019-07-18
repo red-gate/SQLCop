@@ -8,7 +8,7 @@ This project is now managed by SQLServerCentral and Redgate Software. Steve Jone
 
 ## Requirements
 
-This project requires the [tsqlt framework]("https://tsqlt.org/") to run the tests. All SQL Server versions that support the SQLCLR can use these tests. Please check the tsqlt requirements for your system.
+This project requires the [tsqlt framework](https://tsqlt.org/) to run the tests. All SQL Server versions that support the SQLCLR can use these tests. Please check the tsqlt requirements for your system.
 
 **NOTE** : These Tests are NOT suitable for production databases
 
