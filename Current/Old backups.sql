@@ -14,13 +14,15 @@ BEGIN
     Set @Output = ''
 
     Select  @Output = @Output + 'Outdated Backup For '+ D.Name + Char(13) + Char(10)
-    FROM    master..sysdatabases As D         
+    FROM    master.sys.sysdatabases As D         
             Left Join msdb.dbo.backupset As B             
               On  B.database_name = D.Name             
-              And B.type = 'd' 
+              And B.type = 'D' 
+	-- 512 is offline status false, or online
     WHERE   D.Status & 512 = 0 
+	AND d.Name != 'tempdb'
     GROUP BY D.Name 
-    Having Coalesce(DATEDIFF(D, Max(backup_finish_date), Getdate()), 1000) > 7 
+    Having Coalesce(DATEDIFF(D, Max(backup_finish_date), Getdate()), 1000) >= 7 
     ORDER BY D.Name
                    
 	If @Output > '' 
