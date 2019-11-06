@@ -5,17 +5,17 @@ GO
 CREATE PROCEDURE [SQLCop].[test Agent Service]
 AS
 BEGIN
-	-- Written by George Mastros
-	-- February 25, 2012
-	
-	SET NOCOUNT ON
-    
-	Declare @Output VarChar(max)
+    -- Written by George Mastros
+    -- February 25, 2012
+
+    SET NOCOUNT ON
+
+    Declare @Output VarChar(max)
     DECLARE @service NVARCHAR(100)
 
-	Set @Output = ''
+    Set @Output = ''
 
-    
+
     If Convert(VarChar(100), ServerProperty('Edition')) Like 'Express%'
       Select @Output = 'SQL Server Agent not installed for express editions'
     Else If Is_SrvRoleMember('sysadmin') = 0
@@ -28,23 +28,23 @@ BEGIN
 
         Create Table #Temp(Output VarChar(1000))
         Insert Into #Temp
-        EXEC master..xp_servicecontrol N'QUERYSTATE', @service 
+        EXEC master..xp_servicecontrol N'QUERYSTATE', @service
 
-        Select	Top 1 @Output = Output
-        From	#Temp 
-        Where	Output Not Like 'Running%'
-        
-        Drop	Table #Temp
+        Select  Top 1 @Output = Output
+        From    #Temp
+        Where   Output Not Like 'Running%'
+
+        Drop    Table #Temp
       End
-      
-    
-	If @Output > '' 
-		Begin
-			Set @Output = Char(13) + Char(10) 
-						  + 'Could not find running SQL Agent:'
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
-						  + @Output
-			EXEC tSQLt.Fail @Output
-		End 
+
+
+    If @Output > ''
+        Begin
+            Set @Output = Char(13) + Char(10)
+                          + 'Could not find running SQL Agent:'
+                          + Char(13) + Char(10)
+                          + Char(13) + Char(10)
+                          + @Output
+            EXEC tSQLt.Fail @Output
+        End
 END;
