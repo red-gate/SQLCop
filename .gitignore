@@ -1,0 +1,5 @@
+packages
+paket-files
+paket.lock
+paket.exe
+*.nupkg
