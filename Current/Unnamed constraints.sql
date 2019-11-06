@@ -7,9 +7,9 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
@@ -20,15 +20,15 @@ BEGIN
 			And CONSTRAINT_SCHEMA <> 'tSQLt'
 	Order By CONSTRAINT_SCHEMA,CONSTRAINT_NAME
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
-						  + 'https://github.com/red-gate/SQLCop/wiki/Unnamed-constraints' 
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + 'https://github.com/red-gate/SQLCop/wiki/Unnamed-constraints'
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
-		End	  
-		
+		End
+
 END;

@@ -7,12 +7,12 @@ AS
 BEGIN
     -- Written by George Mastros
     -- February 25, 2012
-    
-    SET NOCOUNT ON  
+
+    SET NOCOUNT ON
 
     Declare @Output VarChar(max)
     Set @Output = ''
-  
+
     Select @Output = @Output + Schema_Name(schema_id) + '.' + name + Char(13) + Char(10)
     From	sys.objects
     WHERE	schema_id <> Schema_ID('SQLCop')
@@ -21,16 +21,16 @@ BEGIN
             REPLACE(REPLACE(Object_Definition(object_id), ' ', ''), 'decimal]','decimal') COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI LIKE '%decimal[^(]%'
             Or REPLACE(REPLACE(Object_Definition(object_id), ' ', ''), 'numeric]','numeric') COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI LIKE '%[^i][^s]numeric[^(]%'
             )
-    Order By Schema_Name(schema_id), name  
+    Order By Schema_Name(schema_id), name
 
-    If @Output > '' 
+    If @Output > ''
         Begin
-            Set @Output = Char(13) + Char(10) 
+            Set @Output = Char(13) + Char(10)
                           + 'For more information:  '
                           + 'https://github.com/red-gate/SQLCop/wiki/Decimal-Size-Problem'
-                          + Char(13) + Char(10) 
-                          + Char(13) + Char(10) 
+                          + Char(13) + Char(10)
+                          + Char(13) + Char(10)
                           + @Output
             EXEC tSQLt.Fail @Output
-        End  
+        End
 END;

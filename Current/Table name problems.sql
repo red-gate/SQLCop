@@ -7,9 +7,9 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
     DECLARE @AcceptableSymbols VARCHAR(100)
 
@@ -22,13 +22,13 @@ BEGIN
 			AND TABLE_SCHEMA <> 'tSQLt'
 	ORDER BY TABLE_SCHEMA,TABLE_NAME
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
-						  + 'https://github.com/red-gate/SQLCop/wiki/Table-name-problems' 
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + 'https://github.com/red-gate/SQLCop/wiki/Table-name-problems'
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
 		End

@@ -7,27 +7,27 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
-	CREATE TABLE #EmptyTables(Table_Name VarChar(100))  
-	EXEC 	sp_MSforeachtable 'IF NOT EXISTS(SELECT 1 FROM ?) INSERT INTO #EmptyTables VALUES(''?'')' 
+	CREATE TABLE #EmptyTables(Table_Name VarChar(100))
+	EXEC 	sp_MSforeachtable 'IF NOT EXISTS(SELECT 1 FROM ?) INSERT INTO #EmptyTables VALUES(''?'')'
 	SELECT	@Output = @Output + Table_Name + Char(13) + Char(10)
-	FROM	#EmptyTables 
+	FROM	#EmptyTables
 	Where	Left(Table_Name, 7) <> '[tSQLt]'
-	ORDER BY Table_Name 
+	ORDER BY Table_Name
 	DROP TABLE #EmptyTables
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
-						  + 'Empty tables in your database:' 
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
+						  + 'Empty tables in your database:'
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
-		End	  
+		End
 END;

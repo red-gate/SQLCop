@@ -7,9 +7,9 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
@@ -89,14 +89,14 @@ BEGIN
 	Else
 		Set @Output = 'You do not have VIEW DATABASE STATE permissions within this database'
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
 						  + 'https://github.com/red-gate/SQLCop/wiki/Missing-foreign-key-indexes'
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
-		End	  
+		End
 END;

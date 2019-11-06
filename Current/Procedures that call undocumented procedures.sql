@@ -8,7 +8,7 @@ BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
 	-- Updates contributed by Claude Harvey
-	
+
     SET NOCOUNT ON
 
 	Declare @Output VarChar(max)
@@ -90,17 +90,17 @@ BEGIN
     WHERE  xtype = 'P'
            AND OBJECTPROPERTY(o.id, N'IsMSShipped') = 0
            AND u.name <> 'tSQLt'
-           AND ISNULL(u.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles 
-    ORDER BY u.name + '.' + o.Name 
+           AND ISNULL(u.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles
+    ORDER BY u.name + '.' + o.Name
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
 						  + 'https://github.com/red-gate/SQLCop/wiki/Procedures-that-call-undocumented-procedures'
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
-		End 
+		End
 END;

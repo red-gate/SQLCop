@@ -7,9 +7,9 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
@@ -26,14 +26,14 @@ BEGIN
 	HAVING SUM(ISNULL(NULLIF(CONVERT(BIGINT,S.Length), 8000), 0) + ISNULL(NULLIF(C.CHARACTER_MAXIMUM_LENGTH, 2147483647), 0)) > 8060
 	ORDER BY C.TABLE_SCHEMA,C.TABLE_NAME
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
-						  + 'https://github.com/red-gate/SQLCop/wiki/Wide-tables' 
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + 'https://github.com/red-gate/SQLCop/wiki/Wide-tables'
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
-		End	
+		End
 END;

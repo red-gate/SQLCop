@@ -9,29 +9,29 @@ BEGIN
 	-- February 25, 2012
 
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
 	SELECT	@Output = @Output + C.TABLE_SCHEMA + '.' + C.TABLE_NAME + '.' + C.COLUMN_NAME + Char(13) + Char(10)
 	FROM	INFORMATION_SCHEMA.COLUMNS C
-			INNER JOIN INFORMATION_SCHEMA.TABLES T            
-				ON C.Table_Name = T.Table_Name 
-	WHERE	T.Table_Type = 'BASE TABLE'          
+			INNER JOIN INFORMATION_SCHEMA.TABLES T
+				ON C.Table_Name = T.Table_Name
+	WHERE	T.Table_Type = 'BASE TABLE'
 			AND COLLATION_NAME <> convert(VarChar(100), DATABASEPROPERTYEX(db_name(), 'Collation'))
-			AND COLUMNPROPERTY(OBJECT_ID(C.TABLE_NAME), COLUMN_NAME, 'IsComputed') = 0 
+			AND COLUMNPROPERTY(OBJECT_ID(C.TABLE_NAME), COLUMN_NAME, 'IsComputed') = 0
 			AND C.TABLE_SCHEMA <> 'tSQLt'
 	Order By C.TABLE_SCHEMA, C.TABLE_NAME, C.COLUMN_NAME
-		
-	If @Output > '' 
+
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
-						  + 'hhttps://github.com/red-gate/SQLCop/wiki/Column-collation-does-not-match-database-default' 
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + 'hhttps://github.com/red-gate/SQLCop/wiki/Column-collation-does-not-match-database-default'
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
 		End
-  
+
 END;

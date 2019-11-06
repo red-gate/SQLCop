@@ -7,14 +7,14 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
 	Create Table #Result (ProblemItem VarChar(1000))
-	
+
 	If Exists(Select cmptlevel from master.dbo.sysdatabases Where dbid = db_ID() And cmptlevel > 80)
 		If Exists(Select 1 From fn_my_permissions(NULL, 'DATABASE') WHERE permission_name = 'VIEW DATABASE STATE')
 			Begin
@@ -34,15 +34,15 @@ BEGIN
 			Set @Output = 'You do not have VIEW DATABASE STATE permissions within this database'
 		Else
 			Set @Output = 'Unable to check index fragmentation when compatibility is set to 80 or below'
-			  
-	If @Output > '' 
+
+	If @Output > ''
 		Begin
-            Set @Output = Char(13) + Char(10) 
+            Set @Output = Char(13) + Char(10)
                           + 'For more information:  '
                           + 'https://github.com/red-gate/SQLCop/wiki/Fragmented-indexes'
-                          + Char(13) + Char(10) 
-                          + Char(13) + Char(10) 
+                          + Char(13) + Char(10)
+                          + Char(13) + Char(10)
                           + @Output
 			EXEC tSQLt.Fail @Output
-		End	  
+		End
 END;

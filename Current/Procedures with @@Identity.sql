@@ -7,7 +7,7 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
 
 	Declare @Output VarChar(max)
@@ -21,17 +21,17 @@ BEGIN
 			And is_ms_shipped = 0
 			and schema_id <> Schema_id('tSQLt')
 			and schema_id <> Schema_id('SQLCop')
-	ORDER BY Schema_Name(schema_id), name 
+	ORDER BY Schema_Name(schema_id), name
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
 						  + 'https://github.com/red-gate/SQLCop/wiki/Procedures-with-@@Identity'
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
 		End
-	
+
 END;

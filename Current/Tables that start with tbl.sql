@@ -7,9 +7,9 @@ AS
 BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
@@ -18,16 +18,16 @@ BEGIN
     WHERE	TABLE_TYPE = 'BASE TABLE'
 			And TABLE_NAME COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI LIKE 'tbl%'
 			And TABLE_SCHEMA <> 'tSQLt'
-    Order By TABLE_SCHEMA,TABLE_NAME		
+    Order By TABLE_SCHEMA,TABLE_NAME
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
-						  + 'https://github.com/red-gate/SQLCop/wiki/Tables-that-start-with-tbl' 
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + 'https://github.com/red-gate/SQLCop/wiki/Tables-that-start-with-tbl'
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
-		End  
+		End
 END;

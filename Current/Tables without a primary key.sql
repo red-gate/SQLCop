@@ -8,9 +8,9 @@ BEGIN
 	-- Written by George Mastros
 	-- February 25, 2012
 	-- Updates contributed by Claude Harvey
-	
+
 	SET NOCOUNT ON
-	
+
 	DECLARE @Output VarChar(max)
 	SET @Output = ''
 
@@ -30,17 +30,17 @@ BEGIN
 				ON AllTables.id = PrimaryKeys.parent_obj
 	WHERE	PrimaryKeys.parent_obj Is Null
 			AND su.name <> 'tSQLt'
-		    AND ISNULL(su.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles 
+		    AND ISNULL(su.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles
 	ORDER BY su.name,AllTables.Name
 
-	If @Output > '' 
+	If @Output > ''
 		Begin
-			Set @Output = Char(13) + Char(10) 
+			Set @Output = Char(13) + Char(10)
 						  + 'For more information:  '
-						  + 'https://github.com/red-gate/SQLCop/wiki/Tables-without-a-primary-key' 
-						  + Char(13) + Char(10) 
-						  + Char(13) + Char(10) 
+						  + 'https://github.com/red-gate/SQLCop/wiki/Tables-without-a-primary-key'
+						  + Char(13) + Char(10)
+						  + Char(13) + Char(10)
 						  + @Output
 			EXEC tSQLt.Fail @Output
-		End	
+		End
 END;
