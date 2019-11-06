@@ -13,9 +13,9 @@ BEGIN
     Declare @Output VarChar(max)
     Set @Output = ''
 
-    Select @Output = @Output + Name + Char(13) + Char(10)
-    FROM   master.dbo.sysdatabases
-    WHERE  cmptlevel != 10 * CONVERT(Int, CONVERT(FLOAT, CONVERT(VARCHAR(3), SERVERPROPERTY('productversion'))))
+    Select @Output = @Output + name + Char(13) + Char(10)
+    FROM   sys.databases
+    WHERE  compatibility_level != 10 * CONVERT(Int, CONVERT(FLOAT, CONVERT(VARCHAR(3), SERVERPROPERTY('productversion'))))
 
     If @Output > ''
         Begin
