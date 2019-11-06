@@ -5,14 +5,14 @@ GO
 CREATE PROCEDURE [SQLCop].[test Procedures that call undocumented procedures]
 AS
 BEGIN
-	-- Written by George Mastros
-	-- February 25, 2012
-	-- Updates contributed by Claude Harvey
+    -- Written by George Mastros
+    -- February 25, 2012
+    -- Updates contributed by Claude Harvey
 
     SET NOCOUNT ON
 
-	Declare @Output VarChar(max)
-	Set @Output = ''
+    Declare @Output VarChar(max)
+    Set @Output = ''
 
     DECLARE @Temp TABLE(ProcedureName VARCHAR(50))
 
@@ -93,14 +93,14 @@ BEGIN
            AND ISNULL(u.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles
     ORDER BY u.name + '.' + o.Name
 
-	If @Output > ''
-		Begin
-			Set @Output = Char(13) + Char(10)
-						  + 'For more information:  '
-						  + 'https://github.com/red-gate/SQLCop/wiki/Procedures-that-call-undocumented-procedures'
-						  + Char(13) + Char(10)
-						  + Char(13) + Char(10)
-						  + @Output
-			EXEC tSQLt.Fail @Output
-		End
+    If @Output > ''
+        Begin
+            Set @Output = Char(13) + Char(10)
+                          + 'For more information:  '
+                          + 'https://github.com/red-gate/SQLCop/wiki/Procedures-that-call-undocumented-procedures'
+                          + Char(13) + Char(10)
+                          + Char(13) + Char(10)
+                          + @Output
+            EXEC tSQLt.Fail @Output
+        End
 END;

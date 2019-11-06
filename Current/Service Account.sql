@@ -5,13 +5,13 @@ GO
 CREATE PROCEDURE [SQLCop].[test Service Account]
 AS
 BEGIN
-	-- Written by George Mastros
-	-- February 25, 2012
+    -- Written by George Mastros
+    -- February 25, 2012
 
     SET NOCOUNT ON
 
-	Declare @Output VarChar(max)
-	Set @Output = ''
+    Declare @Output VarChar(max)
+    Set @Output = ''
 
     --Declare a variable to hold the value
     DECLARE @ServiceAccount varchar(100)
@@ -28,15 +28,15 @@ BEGIN
     SELECT @Output = 'Service account set to LocalSystem'
     Where  @ServiceAccount = 'LocalSystem'
 
-	If @Output > ''
-		Begin
-			Set @Output = Char(13) + Char(10)
-						  + 'For more information:  '
-						  + 'https://github.com/red-gate/SQLCop/wiki/Service-Account'
-						  + Char(13) + Char(10)
-						  + Char(13) + Char(10)
-						  + @Output
-			EXEC tSQLt.Fail @Output
-		End
+    If @Output > ''
+        Begin
+            Set @Output = Char(13) + Char(10)
+                          + 'For more information:  '
+                          + 'https://github.com/red-gate/SQLCop/wiki/Service-Account'
+                          + Char(13) + Char(10)
+                          + Char(13) + Char(10)
+                          + @Output
+            EXEC tSQLt.Fail @Output
+        End
 
 END;

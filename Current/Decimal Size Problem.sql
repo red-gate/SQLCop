@@ -14,8 +14,8 @@ BEGIN
     Set @Output = ''
 
     Select @Output = @Output + Schema_Name(schema_id) + '.' + name + Char(13) + Char(10)
-    From	sys.objects
-    WHERE	schema_id <> Schema_ID('SQLCop')
+    From    sys.objects
+    WHERE   schema_id <> Schema_ID('SQLCop')
             And schema_id <> Schema_Id('tSQLt')
             and (
             REPLACE(REPLACE(Object_Definition(object_id), ' ', ''), 'decimal]','decimal') COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI LIKE '%decimal[^(]%'

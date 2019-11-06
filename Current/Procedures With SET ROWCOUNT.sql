@@ -13,9 +13,9 @@ BEGIN
     Declare @Output VarChar(max)
     Set @Output = ''
 
-    SELECT	@Output = @Output + Schema_Name(schema_id) + '.' + name + Char(13) + Char(10)
-    From	sys.all_objects
-    Where	type = 'P'
+    SELECT  @Output = @Output + Schema_Name(schema_id) + '.' + name + Char(13) + Char(10)
+    From    sys.all_objects
+    Where   type = 'P'
             AND name Not In('sp_helpdiagrams','sp_upgraddiagrams','sp_creatediagram','testProcedures With SET ROWCOUNT')
             And Replace(Object_Definition(Object_id), ' ', '') COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI Like '%SETROWCOUNT%'
             And is_ms_shipped = 0
