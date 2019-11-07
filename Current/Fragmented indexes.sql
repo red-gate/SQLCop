@@ -15,7 +15,7 @@ BEGIN
 
     Create Table #Result (ProblemItem VarChar(1000))
 
-    If Exists(Select cmptlevel from master.dbo.sysdatabases Where dbid = db_ID() And cmptlevel > 80)
+    If Exists(Select compatibility_level from sys.databases Where database_id = db_ID() And compatibility_level > 80)
         If Exists(Select 1 From fn_my_permissions(NULL, 'DATABASE') WHERE permission_name = 'VIEW DATABASE STATE')
             Begin
                 Insert Into #Result(ProblemItem)

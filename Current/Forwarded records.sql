@@ -13,7 +13,7 @@ BEGIN
     DECLARE @Output VarChar(max)
     SET @Output = ''
 
-    If Exists(Select cmptlevel from master.dbo.sysdatabases Where dbid = db_ID() And cmptlevel > 80)
+    If Exists(Select compatibility_level from sys.databases Where database_id = db_ID() And compatibility_level > 80)
         Begin
             Create Table #Results(ProblemItem VarChar(1000))
 

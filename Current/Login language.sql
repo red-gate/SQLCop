@@ -15,16 +15,16 @@ BEGIN
 
     Set @Output = ''
 
-    Select  @DefaultLanguage = L.Name
-    From    master.dbo.sysconfigures C
-            Inner Join master.dbo.syslanguages L
-              On C.Value = L.LangId
-              And C.Comment = 'default Language'
+    Select  @DefaultLanguage = L.name
+    From    sys.configurations C
+            Inner Join sys.syslanguages L
+              On C.value = L.langid
+              And C.name = 'default language'
 
-    Select  @Output = @Output + Name + Char(13) + Char(10)
-    From    master..syslogins
-    Where   Language <> @DefaultLanguage
-    Order By Name
+    Select  @Output = @Output + name + Char(13) + Char(10)
+    From    sys.server_principals
+    Where   default_language_name <> @DefaultLanguage
+    Order By name
 
     If @Output > ''
         Begin

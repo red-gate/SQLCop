@@ -13,13 +13,13 @@ BEGIN
     Declare @Output VarChar(max)
     Set @Output = ''
 
-    Select  @Output = @Output + 'Outdated Backup For '+ D.Name + Char(13) + Char(10)
-    FROM    master..sysdatabases As D
+    Select  @Output = @Output + 'Outdated Backup For '+ D.name + Char(13) + Char(10)
+    FROM    sys.databases As D
             Left Join msdb.dbo.backupset As B
-              On  B.database_name = D.Name
+              On  B.database_name = D.name
               And B.type = 'd'
-    WHERE   D.Status & 512 = 0
-    GROUP BY D.Name
+    WHERE   D.state != 6
+    GROUP BY D.name
     Having Coalesce(DATEDIFF(D, Max(backup_finish_date), Getdate()), 1000) > 7
     ORDER BY D.Name
 
