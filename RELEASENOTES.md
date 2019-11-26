@@ -1,5 +1,8 @@
 # SQL Cop Release Notes
 
+## 1.0.3
+* Fixes to support tests running on Azure SQL databases
+
 ## 1.0.2
 * Use system views instead of legacy system tables
 
