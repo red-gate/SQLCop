@@ -78,20 +78,18 @@ BEGIN
     INSERT INTO @Temp VALUES('xp_varbintohexstr')
     INSERT INTO @Temp VALUES('sp_MSguidtostr')
 
-    Select @Output = @Output + u.name + '.' + o.name + Char(13) + Char(10)
-    FROM   sysobjects o
+    SELECT @Output = @Output + SCHEMA_NAME(o.schema_id) + '.' + o.name + Char(13) + Char(10)
+    FROM   sys.objects o
            INNER JOIN syscomments c
-             ON o.id = c.id
-             AND o.xtype = 'P'
-           INNER JOIN sysusers u
-             ON o.uid = u.uid
+             ON o.object_id = c.id
+             AND o.type = 'P'
            INNER JOIN @Temp t
              ON c.text COLLATE SQL_LATIN1_GENERAL_CP1_CI_AI LIKE '%' + t.ProcedureName + '%'
-    WHERE  xtype = 'P'
-           AND OBJECTPROPERTY(o.id, N'IsMSShipped') = 0
-           AND u.name <> 'tSQLt'
-           AND ISNULL(u.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles
-    ORDER BY u.name + '.' + o.Name
+    WHERE  type = 'P'
+           AND o.is_ms_shipped = 0
+           AND SCHEMA_NAME(o.schema_id) <> 'tSQLt'
+           AND SCHEMA_NAME(o.schema_id) <> 'SQLCop'
+    ORDER BY SCHEMA_NAME(o.schema_id), o.name
 
     If @Output > ''
         Begin
