@@ -13,13 +13,11 @@ BEGIN
     DECLARE @Output VarChar(max)
     SET @Output = ''
 
-    CREATE TABLE #EmptyTables(Table_Name VarChar(100))
-    EXEC    sp_MSforeachtable 'IF NOT EXISTS(SELECT 1 FROM ?) INSERT INTO #EmptyTables VALUES(''?'')'
-    SELECT  @Output = @Output + Table_Name + Char(13) + Char(10)
-    FROM    #EmptyTables
-    Where   Left(Table_Name, 7) <> '[tSQLt]'
-    ORDER BY Table_Name
-    DROP TABLE #EmptyTables
+    SELECT  @Output = @Output + QUOTENAME(SCHEMA_NAME(t.schema_id)) + '.' + QUOTENAME(t.name) + Char(13) + Char(10)
+    FROM    sys.tables t JOIN sys.dm_db_partition_stats p ON t.object_id=p.object_id
+    WHERE   SCHEMA_NAME(t.schema_id) <> 'tSQLt'
+    AND     p.row_count = 0
+    ORDER BY SCHEMA_NAME(t.schema_id), t.name
 
     If @Output > ''
         Begin
