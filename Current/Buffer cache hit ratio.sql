@@ -10,10 +10,11 @@ BEGIN
 
     SET NOCOUNT ON
 
-    Declare @Output VarChar(max)
+    Declare @Output VarChar(max), @PermissionsErrors VarChar(max)
     Set @Output = ''
+    Set @PermissionsErrors = SQLCop.DmOsPerformanceCountersPermissionErrors()
 
-    If Exists(Select 1 From fn_my_permissions(NULL, 'SERVER') WHERE permission_name = 'VIEW SERVER STATE')
+    If (@PermissionsErrors = '')
         SELECT  @Output = Convert(DECIMAL(4,1), (a.cntr_value * 1.0 / b.cntr_value) * 100.0)
         FROM    sys.dm_os_performance_counters  a
                 JOIN  (
@@ -27,7 +28,7 @@ BEGIN
                 AND a.OBJECT_NAME collate SQL_LATIN1_GENERAL_CP1_CI_AI like '%:Buffer Manager%'
                 and Convert(DECIMAL(4,1), (a.cntr_value * 1.0 / b.cntr_value) * 100.0) < 95
     Else
-        Set @Output = 'You do not have VIEW SERVER STATE permissions within this instance.'
+        Set @Output = @PermissionsErrors
 
     If @Output > ''
         Begin
