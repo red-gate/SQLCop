@@ -14,7 +14,7 @@ BEGIN
     Set @Output = ''
     Set @Warning = 'Warning: Max degree of parallelism is setup to use all cores'
 
-    IF (SERVERPROPERTY('EngineEdition') = 5)
+    IF (SERVERPROPERTY('EngineEdition') = 5 OR SERVERPROPERTY('EngineEdition') = 8)
         BEGIN
             select @Output = @Warning
             from   sys.database_scoped_configurations
