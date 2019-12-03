@@ -45,7 +45,7 @@ BEGIN
         INNER JOIN sys.objects ob
             ON ob.object_id = dep.referencing_id
     WHERE dep.is_ambiguous = 0
-          AND OBJECT_ID(dep.referenced_entity_name) IS NULL
+          AND dep.referenced_id IS NULL
           AND dep.referenced_schema_name <> 'tSQLt'
           AND SCHEMA_NAME(ob.schema_id) <> 'tSQLt';
 

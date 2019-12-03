@@ -14,24 +14,21 @@ BEGIN
     DECLARE @Output VarChar(max)
     SET @Output = ''
 
-    SELECT  @Output = @Output + su.name + '.' + AllTables.Name + Char(13) + Char(10)
+    SELECT  @Output = @Output + QUOTENAME(AllTables.schemaName) + '.' + QUOTENAME(AllTables.Name) + Char(13) + Char(10)
     FROM    (
-            SELECT  Name, id, uid
-            From    sysobjects
-            WHERE   xtype = 'U'
+            SELECT  name, object_id, SCHEMA_NAME(schema_id) AS schemaName
+            From    sys.tables
             ) AS AllTables
-            INNER JOIN sysusers su
-                On AllTables.uid = su.uid
             LEFT JOIN (
-                SELECT parent_obj
-                From sysobjects
-                WHERE  xtype = 'PK'
+                SELECT parent_object_id
+                From sys.objects
+                WHERE  type = 'PK'
                 ) AS PrimaryKeys
-                ON AllTables.id = PrimaryKeys.parent_obj
-    WHERE   PrimaryKeys.parent_obj Is Null
-            AND su.name <> 'tSQLt'
-            AND ISNULL(su.issqlrole, 0) = 0 -- CH: Fix to avoid false positives with roles
-    ORDER BY su.name,AllTables.Name
+                ON AllTables.object_id = PrimaryKeys.parent_object_id
+    WHERE   PrimaryKeys.parent_object_id Is Null
+            AND AllTables.schemaName <> 'tSQLt'
+
+    ORDER BY AllTables.schemaName, AllTables.Name
 
     If @Output > ''
         Begin
