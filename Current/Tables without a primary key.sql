@@ -14,7 +14,7 @@ BEGIN
     DECLARE @Output VarChar(max)
     SET @Output = ''
 
-    SELECT  @Output = @Output + QUOTENAME(AllTables.schemaName) + '.' + QUOTENAME(AllTables.Name) + Char(13) + Char(10)
+    SELECT  @Output = @Output + QUOTENAME(AllTables.schemaName) + '.' + QUOTENAME(AllTables.name) + Char(13) + Char(10)
     FROM    (
             SELECT  name, object_id, SCHEMA_NAME(schema_id) AS schemaName
             From    sys.tables
@@ -28,7 +28,7 @@ BEGIN
     WHERE   PrimaryKeys.parent_object_id Is Null
             AND AllTables.schemaName <> 'tSQLt'
 
-    ORDER BY AllTables.schemaName, AllTables.Name
+    ORDER BY AllTables.schemaName, AllTables.name
 
     If @Output > ''
         Begin
