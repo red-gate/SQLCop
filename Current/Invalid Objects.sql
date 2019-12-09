@@ -47,7 +47,8 @@ BEGIN
     WHERE dep.is_ambiguous = 0
           AND dep.referenced_id IS NULL
           AND dep.referenced_schema_name <> 'tSQLt'
-          AND SCHEMA_NAME(ob.schema_id) <> 'tSQLt';
+          AND SCHEMA_NAME(ob.schema_id) <> 'tSQLt'
+          AND SCHEMA_NAME(ob.schema_id) <> 'SQLCop';
 
     -- Assert
     -- Check if output is blank and pass, else fail with list of invalid objects
