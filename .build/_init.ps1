@@ -12,7 +12,7 @@ function global:RestoreBuildLevelPackages {
 
     Push-Location $PsScriptRoot -verbose
     try {
-        & "..\.paket\paket.exe" install
+        & cmd /c "..\.paket\paket.exe install 2>&1"
         if($LASTEXITCODE -ne 0) {
             throw "paket install exited with code $LASTEXITCODE"
         }
