@@ -7,4 +7,4 @@ nuget RedGate.Build ~> 3.5
 source https://api.nuget.org/v3/index.json
 
 nuget Invoke-Build ~> 5.5
-nuget Nuget.CommandLine ~> 4.7.1
+nuget NuGet.CommandLine ~> 5.5
