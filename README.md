@@ -14,7 +14,7 @@ This project requires the [tsqlt framework](https://tsqlt.org/) to run the tests
 
 ## Installing the tests
 
-All tests are created a stored procedures in a test class (schema), called SQLCop. You can compile them in a SQL Server database and use the tsql.run command to execute any of these tests.
+All tests are created as stored procedures in a test class (schema), called SQLCop. You can compile them in a SQL Server database and use the tsql.run command to execute any of these tests.
 
 ## Issues Checked
 The following is a list of issues that are checked by the current project.
