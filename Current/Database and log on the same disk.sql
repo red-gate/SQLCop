@@ -1,3 +1,7 @@
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[SQLCop].[test Database and Log files on the same disk]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [SQLCop].[test Database and Log files on the same disk]
+GO
+
 create procedure [SQLCop].[test Database and Log files on the same disk]
 as
 begin
