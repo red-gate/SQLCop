@@ -46,6 +46,7 @@ BEGIN
             ON ob.object_id = dep.referencing_id
     WHERE dep.is_ambiguous = 0
           AND dep.referenced_id IS NULL
+          AND dep.referenced_database_name = db_name()
           AND dep.referenced_schema_name <> 'tSQLt'
           AND SCHEMA_NAME(ob.schema_id) <> 'tSQLt'
           AND SCHEMA_NAME(ob.schema_id) <> 'SQLCop';
