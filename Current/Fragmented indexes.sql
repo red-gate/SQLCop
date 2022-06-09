@@ -29,6 +29,11 @@ BEGIN
                                 And OBJECT_NAME(OBJECT_ID) + ''.'' + s.name > ''''
                                 And page_count > 1000
                                 Order By Object_Name(OBJECT_ID), s.name')
+                                
+                    IF EXISTS (SELECT 1
+                               FROM   #Result)
+                        SELECT @Output = @Output + ProblemItem + CHAR(13) + CHAR(10)
+                        FROM   #Result;                                
             End
         Else
             Set @Output = 'You do not have VIEW DATABASE STATE permissions within this database'
