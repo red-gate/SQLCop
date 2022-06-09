@@ -27,7 +27,7 @@ BEGIN
         Begin
             Set @Output = Char(13) + Char(10)
                           + 'For more information:  '
-                          + 'hhttps://github.com/red-gate/SQLCop/wiki/Column-collation-does-not-match-database-default'
+                          + 'https://github.com/red-gate/SQLCop/wiki/Column-collation-does-not-match-database-default'
                           + Char(13) + Char(10)
                           + Char(13) + Char(10)
                           + @Output
