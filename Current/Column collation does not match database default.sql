@@ -19,7 +19,7 @@ BEGIN
                 ON C.Table_Name = T.Table_Name
     WHERE   T.Table_Type = 'BASE TABLE'
             AND COLLATION_NAME <> convert(VarChar(100), DATABASEPROPERTYEX(db_name(), 'Collation'))
-            AND COLUMNPROPERTY(OBJECT_ID(C.TABLE_NAME), COLUMN_NAME, 'IsComputed') = 0
+            AND COLUMNPROPERTY(OBJECT_ID(C.TABLE_SCHEMA + '.' + C.TABLE_NAME), COLUMN_NAME, 'IsComputed') = 0
             AND C.TABLE_SCHEMA <> 'tSQLt'
     Order By C.TABLE_SCHEMA, C.TABLE_NAME, C.COLUMN_NAME
 
